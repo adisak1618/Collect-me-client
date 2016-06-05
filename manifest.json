@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+
+  "name": "Collect Me",
+  "description": "This application make for help people to learn english in daily life",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png"
+
+  },
+  "permissions": [
+    "<all_urls>",
+    "storage"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*","https://*/*"],
+      "js": ["jquery.js","js.cookie.js","readability-master/Readability.js","config.js","myscript.js"],
+      "css": ["style.css"]
+    }
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://google.com; object-src 'self'",
+  "web_accessible_resources": ["images/*.jpg"]
+
+}
