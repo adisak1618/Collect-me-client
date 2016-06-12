@@ -1,7 +1,7 @@
 
 var url = chrome.extension.getURL('images/logo.jpg');
 // var iframe = "<iframe src='"+url+"' id='collectmetoolbar1618'>";
-var login_section = "<div class='clogin_section'><form><div class='cprofile'><div class='cimage'><center><h1>Sign In</h1></center></div><div class='input-box'><div class='item-input'><input type='text' name='cmeusername' placeholder='Username'/></div><div class='item-input'><input type='password' name='cmepassword' placeholder='Password'/></div></div><div class='item-input'><button type='button' id='collectmesubmit' class='collectmebotton' name='cmesubmit'>LOGIN </button></div></div></form></div>";
+var login_section = "<div class='clogin_section'><form><div class='cprofile'><div class='cimage'><center><h1>Sign In</h1></center></div><div class='input-box'><div class='item-input'><input type='text' name='cmeusername' placeholder='Email'/></div><div class='item-input'><input type='password' name='cmepassword' placeholder='Password'/></div></div><div class='item-input'><button type='button' id='collectmesubmit' class='collectmebotton' name='cmesubmit'>LOGIN </button></div></div></form></div>";
 var sigup_section = " <div class='csignup_section'><center><h1>Join Us</h1></center> <form> <div class='cprofile'> <div class='input-box'> <div class='item-input'> <input type='text' name='csignup_name' placeholder='Name'/> </div><div class='item-input'> <input type='text' name='csignup_email' placeholder='Email'/> </div><div class='item-input'> <input type='password' name='cme_signup_password' placeholder='Password'/> </div></div><div class='item-input'> <button type='button' id='collectme_signup_submit' class='collectmebotton' name='cmesubmit'> Signup </button> </div></div></form> </div>";
 var header = "<div class='cheader'><div class='cstatusbar'></div><h1 class='collectmename'>Collect Me</h1><div class='cbottom_section'><span class='creadermode' href='#'>Reader Mode</span><span id='collectmelogout'>Logout</span></div></div>";
 var toolbar = "<div id='collectmetoolbar' class='' ><div id='collectmemainwrapper'><div id='collectmewrapper'>"+header+"<div class='content'></div></div></div><div class='cme-frontpage'>"+login_section+"<hr/>"+sigup_section+"</div></div>";
@@ -11,7 +11,7 @@ var reader_mode = "<div id='collectme-reader-mode'>"+mainPage+secondPage+"</div>
 
 
 
-var popup_box = "<div id='collectme_popup'></div>";
+var popup_box = "<div id='collectme_popup'><div class='cmecontent'></div><div class='cmeclose'>X</div></div>";
 var text, article, profile_words,profile_words_array;
 var user_word_length = 0;
 var words = ['a'];
@@ -94,6 +94,8 @@ $("#collectme_signup_submit").click(function(){
       }
     }
   });
+
+  $('form').trigger("reset");
 });
 $("#collectmesubmit").click(function(){
   var cmusername = $("input[name='cmeusername']").val();
@@ -121,11 +123,22 @@ $("#collectmesubmit").click(function(){
       }
     }
   });
+
+  $('form').trigger("reset");
 });
 
 $('#collectmetoolbar .creadermode').click(function(){
   togglePage();
   $("#collectme-reader-mode #collectme-mainpage .cmecontent").html(article.content);
+  $( '#collectme-reader-mode' ).on( 'mouseup', function(){
+    console.log("mouseup");
+    sel = document.getSelection();
+    sel_string = String(sel);
+    if( sel_string.length > 2 ){
+      //alert( String(sel) );
+      translation(sel_string);
+    }
+  });
 });
 
 $('#clickme').click(function(){
@@ -296,8 +309,8 @@ function popup(data){
   }
   window_w =  (window.innerWidth-hasToolbar)/2;
 
-  $("#collectme_popup").css("left",window_w).html(data).addClass('popup_show');
-  setTimeout(function(){ $("#collectme_popup").removeClass('popup_show'); },4000);
+  $("#collectme_popup").css("left",window_w).addClass('popup_show').find('.cmecontent').html(data);
+  //setTimeout(function(){ $("#collectme_popup").removeClass('popup_show'); },4000);
 
 }
 
@@ -350,5 +363,10 @@ $( 'body' ).on( 'mouseup', function(){
     //alert( String(sel) );
     translation(sel_string);
   }
+});
+
+$('#collectme_popup .cmeclose').click(function(){
+  $("#collectme_popup .cmecontent").html('');
+    $("#collectme_popup").removeClass('popup_show');
 });
 //submenu of word --> history

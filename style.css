@@ -1,3 +1,27 @@
+@font-face {
+	font-family: 'Arial Rounded MT';
+	src: url('./fonts/ArialRoundedMTBold.eot');
+	src: url('./fonts/ArialRoundedMTBold.eot?#iefix') format('embedded-opentype'),
+		url('./fonts/ArialRoundedMTBold.woff') format('woff'),
+		url('./fonts/ArialRoundedMTBold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Sukhumvit Set';
+	src: url('./fonts/SukhumvitSet-Medium.eot');
+	src: url('./fonts/SukhumvitSet-Medium.eot?#iefix') format('embedded-opentype'),
+		url('./fonts/SukhumvitSet-Medium.woff') format('woff'),
+		url('./fonts/SukhumvitSet-Medium.ttf') format('truetype');
+	font-weight: 500;
+	font-style: normal;
+}
+
+#collectmetoolbar, #collectmemainwrapper, #collectme_popup, #collectme-reader-mode{
+  font-family: 'Sukhumvit Set' !important;
+}
+
 body{
 
 
@@ -368,10 +392,12 @@ body{
 
 #collectme_popup{
   overflow: hidden;
+	max-height: 550px;
   color:#FFF;
   text-align: center !important;
   padding: 20px;
   width: 500px;
+  font-size: 30px !important;
   position: fixed;
   background: linear-gradient(to left, #24C6DC , #427DAF);
   border: solid 2px #FFF;
@@ -388,6 +414,22 @@ body{
   -moz-transition: bottom 1s ease;
   -o-transition: bottom 1s ease;
   transition: bottom 1s ease;
+}
+
+#collectme_popup .cmeclose{
+	position: absolute;
+    top: 2px;
+    right: 2px;
+    line-height: 25px;
+    font-size: 18px;
+    font-family: monospace;
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    background: #2f2f2f;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
 }
 
 /*profile words*/
